@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Deppsum</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;           
+        }
+        main{
+            max-height: 100vh;
+            position: relative;
+        }
+        main .background{
+            height: 95vh;
+            background: linear-gradient(to top right, #649173, #dbd5a4);
+        }
+        main .background.theme2{
+            background: linear-gradient(to right, #00d2ff, #3a7bd5);
+        }
+        main .image{
+            width: 35vw;
+            height: 85vh;
+            position: absolute;
+            bottom: -5vh;
+            left: 10vw;
+            box-shadow: 0 0 8px rgb(0,0,0,0.8);
+            overflow: hidden;
+        }
+        main .image > div{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 0;
+        }
+        main .image .img-backdrop{
+            width: 100%;
+            height: 100%;
+            background: #d3d0a0;
+            position: absolute;
+            top: 0;
+            left: 0;      
+        }
+        main .image .img-backdrop.theme2{
+            background: #3a7bd5;
+        }
+        main .image img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+            transform: scale(1.3);
+            animation: image 4s infinite ease-in-out forwards;
+        }
+        main .info{
+            width: 70vw;
+            height: 70vh;
+            position: absolute;
+            right: 15vw;
+            bottom: -2vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        main .info h1{
+            margin: 0 0 0 auto;
+            font-size: 23vmin;
+            font-family: sans-serif;
+            color: white;
+        }
+        main .info p.description{
+            margin: 0 0 0 auto;
+            font-size: 5vmin;
+            color: white;
+        }
+        main .info form{
+            margin: 0 0 0 auto;
+            display: flex;
+            align-items: center;
+            width: 80%;
+            background: white;
+            font-size: 3vmin;
+            font-family: sans-serif;
+        }
+        main .info form .submit-container{
+            height: 14vh;
+            width: 25%;
+            margin: 0 0 0 auto;
+        }
+        main .info form input[type='submit']{
+            height: 100%;
+            width: 100%;
+            border: none;     
+            padding: 1vmin;
+            color: white;
+            background: #54694d;
+        }
+        main .info form input[type='submit'].theme2{
+            background: #008dab;
+        }
+        main .info form input[type='number']{
+            width: 8vmin;
+            height: 7vmin;
+            margin: 0 3vmin;
+            padding: 1vmin;
+        }
+        div.content{
+            width: 60%;
+            margin: 15vmin auto;
+            font-size: 3.5vmin;
+            font-family: sans-serif;
+            color: rgb(0,0,0,0.8);
+        }
+        .form-info{
+            height: 14vh;
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+        }
+        @keyframes image{
+            from{
+                transform: scale(1.3);
+            }
+            to{
+                transform: scale(1);
+            }
+        }
+        @media (max-width: 1000px){
+            main .info{
+                width: 90vw;
+                right: 5vw;
+            }
+            main .info h1{
+                font-size: 10vmin;
+            }
+            main .info form{
+                width: 100%;
+                margin: 14vh auto 0 auto;
+                flex-direction: column;
+            }
+            main .info form .submit-container{
+                width: 100%;
+            }
+        }
+        @media (max-width: 800px){
+            main{
+                height: 60vh;
+            }
+            main .info{
+                top: 10vh;
+            }
+            main .image{
+                top: 0;
+                left: 0;
+                width: 70%;
+                height: 60vh;
+            }
+            main .background{
+                height: 60vh;
+                top: 10vh;
+            }
+            div.content{
+                width: 90%;
+                margin: 25vmin auto 0 auto;
+            }
+        }
+        @media (max-width: 600px){
+            div.content{
+                margin: 45vmin auto 0 auto;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <div class="background"></div>
+        <div class="image">
+            <div style="position: relative;">
+                <img class="img" src="https://freepngimg.com/thumb/johnny_depp/33603-5-johnny-depp.png">
+                <div class="img-backdrop"></div>
+            </div>
+        </div>
+        <div class="info">
+            <h1>Deppsum</h1>
+            <p class="description">A little text placeholder generator <br>of Johnny Depp awesomeness.</p>
+            <form action="/" method="POST">
+                <div class="form-info">
+                    <span style="margin: 0 0 0 auto">Gimme like</span>
+                    <input type="number" step="1" name="noPara">
+                    <span>paragraph of the deppness</span>
+                </div>
+                <div class="submit-container">
+                    <input class="submit" type = "submit" value="Receive the Depp">
+                </div>
+            </form>
+        </div>
+    </main>
+    <div class="content">
+        {{#each quotes}}
+            {{this}}
+            <br><br>
+        {{/each}}
+    </div>
+    <script>
+        img = document.querySelector('.img');
+        button = document.querySelector('.submit');
+        imgBackdrop = document.querySelector('.img-backdrop');
+        background = document.querySelector('.background');
+        counter = 0;
+        function themeChange(){
+            button.classList.toggle('theme2');
+            background.classList.toggle('theme2');
+            imgBackdrop.classList.toggle('theme2');
+            if(counter%2 == 0){
+                img.setAttribute('src','https://www.pngpix.com/wp-content/uploads/2016/11/PNGPIX-COM-Johnny-Depp-PNG-Transparent-Image-500x750.png');
+            }
+            else{
+                img.setAttribute('src','https://freepngimg.com/thumb/johnny_depp/33603-5-johnny-depp.png');
+            }
+            counter++;
+            setTimeout(themeChange,4000)
+        }
+        themeChange();
+    </script>
+</body>
+</html>
